@@ -1,7 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="d7fd9ab7-444c-45bd-add5-ab1f928b55cd" name="Default Changelist" comment="" />
+    <list default="true" id="d7fd9ab7-444c-45bd-add5-ab1f928b55cd" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/layout.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/js/write.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/write.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog" beforeDir="false" afterPath="$PROJECT_DIR$/blog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/post.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/post.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/footer.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/header.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/write.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/write.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils.go" beforeDir="false" afterPath="$PROJECT_DIR$/utils.go" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -10,12 +41,15 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="HTML File" />
         <option value="Go File" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
   <component name="GOROOT" path="$PROJECT_DIR$/../../go1.15rc2" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1g2dn1NWiiaiNMnvRjfNH9uGzcu" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -25,15 +59,55 @@
     <property name="DefaultGoTemplateProperty" value="Go File" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="ToolWindowCommit.ShowToolbar" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="configurable.Global.GOPATH.is.expanded" value="true" />
+    <property name="configurable.Module.GOPATH.is.expanded" value="false" />
+    <property name="configurable.Project.GOPATH.is.expanded" value="true" />
     <property name="go.import.settings.migrated" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="com.goide.configuration.GoLibrariesConfigurableProvider" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
   <component name="WindowStateProjectService">
+    <state x="820" y="354" width="800" height="712" key="#Plugins" timestamp="1597756688058">
+      <screen x="61" y="27" width="1859" height="1053" />
+    </state>
+    <state x="820" y="354" width="800" height="712" key="#Plugins/61.27.1859.1053@61.27.1859.1053" timestamp="1597756688058" />
     <state x="984" y="358" width="561" height="396" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1597321758978">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
     <state x="984" y="358" width="561" height="396" key="#com.intellij.fileTypes.FileTypeChooser/61.27.1859.1053@61.27.1859.1053" timestamp="1597321758978" />
+    <state x="479" y="187" key="SettingsEditor" timestamp="1597732179931">
+      <screen x="61" y="27" width="1859" height="1053" />
+    </state>
+    <state x="479" y="187" key="SettingsEditor/61.27.1859.1053@61.27.1859.1053" timestamp="1597732179931" />
+    <state width="498" height="446" key="SwitcherDM" timestamp="1597749422107">
+      <screen x="61" y="27" width="1859" height="1053" />
+    </state>
+    <state width="498" height="446" key="SwitcherDM/61.27.1859.1053@61.27.1859.1053" timestamp="1597749422107" />
+    <state x="585" y="288" width="800" height="528" key="Vcs.Push.Dialog.v2" timestamp="1597731132193">
+      <screen x="61" y="27" width="1859" height="1053" />
+    </state>
+    <state x="585" y="288" width="800" height="528" key="Vcs.Push.Dialog.v2/61.27.1859.1053@61.27.1859.1053" timestamp="1597731132193" />
+    <state x="372" y="321" width="1190" height="728" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1597761680622">
+      <screen x="61" y="27" width="1859" height="1053" />
+    </state>
+    <state x="372" y="321" width="1190" height="728" key="com.intellij.history.integration.ui.views.FileHistoryDialog/61.27.1859.1053@61.27.1859.1053" timestamp="1597761680622" />
   </component>
 </project>
