@@ -3,6 +3,7 @@ package main
 import (
 	"crypto/rand"
 	"fmt"
+	"github.com/russross/blackfriday"
 )
 
 func GenerateId() string {
@@ -10,4 +11,8 @@ func GenerateId() string {
 	rand.Read(b)          //Заполняем их рандомными байтами
 
 	return fmt.Sprintf("%x", b) //Вываодим в строку. Это и будет наш id
+}
+
+func ConvertMarkDownToHtml(markdown string) string {
+	return string(blackfriday.MarkdownBasic([]byte(markdown)))
 }

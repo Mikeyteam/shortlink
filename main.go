@@ -1,20 +1,33 @@
 package main
 
 import (
+	"blog/db/documents"
 	"blog/models"
 	"fmt"
 	"github.com/go-martini/martini"
 	"github.com/martini-contrib/render"
-	"github.com/russross/blackfriday"
+	"gopkg.in/mgo.v2"
 	"html/template"
 	"net/http"
 )
 
-var posts map[string]*models.Post
+//Глобальная коллекция к ней обращаемся из наших handler
+var postsCollection *mgo.Collection
 var counter int64
 
 //render который мы подключили(import) будет автоматически инжектится
 func homeRouterHandler(render render.Render) {
+	var postDocuments []documents.PostDocument
+	postsCollection.Find(nil).All(&postDocuments)
+
+	var posts []models.Post
+
+	//Конвертируем из документов модели
+	for _, doc := range postDocuments {
+		post := models.Post{Id: doc.Id, Title: doc.Title, ContentHtml: doc.ContentHtml, ContentMarkDown: doc.ContentMarkDown}
+		posts = append(posts, post)
+	}
+
 	fmt.Println(counter)
 	render.HTML(200, "index", posts)
 }
@@ -23,14 +36,19 @@ func writeRouteHandler(render render.Render) {
 	render.HTML(200, "write", nil)
 }
 
-func editRouteHandler(render render.Render, w http.ResponseWriter, r *http.Request, params martini.Params) {
+func editRouteHandler(render render.Render, params martini.Params) {
 	id := params["id"]
-	post, found := posts[id]
 
-	if !found {
-		http.NotFound(w, r)
-		return
+	postDocument := documents.PostDocument{}
+	err := postsCollection.FindId(id).One(&postDocument)
+
+	if err != nil {
+		render.Redirect("/")
 	}
+
+	//Создаем новый пост
+	post := models.Post{Id: postDocument.Id, Title: postDocument.Title, ContentHtml: postDocument.ContentHtml, ContentMarkDown: postDocument.ContentMarkDown}
+
 	render.HTML(200, "write", post)
 }
 
@@ -40,27 +58,25 @@ func deleteRouteHandler(render render.Render, w http.ResponseWriter, r *http.Req
 	if id == "" {
 		http.NotFound(w, r)
 	}
-	delete(posts, id)
+	postsCollection.RemoveId(id)
+
 	render.Redirect("/")
 }
 
 func safePostHandler(render render.Render, r *http.Request) {
 	id := r.FormValue("id")
 	title := r.FormValue("title")
-	contentMarkDown  := r.FormValue("content")
-	contentHtml := string(blackfriday.MarkdownBasic([]byte(contentMarkDown)))
+	contentMarkDown := r.FormValue("content")
+	contentHtml := ConvertMarkDownToHtml(contentMarkDown)
 
-	var post *models.Post
+	postDocument := documents.PostDocument{Id: id, Title: title, ContentHtml: contentHtml, ContentMarkDown: contentMarkDown}
+
 	if id != "" {
-		post = posts[id]
-		post.Title = title
-		post.ContentHtml = contentHtml
-		post.ContentMarkDown = contentMarkDown
+		postsCollection.UpdateId(id, postDocument)
 	} else {
 		id = GenerateId()
-		// Создали модельку post из данных формы
-		post := models.NewPost(id, title, contentHtml, contentMarkDown)
-		posts[post.Id] = post //сохранили модельку в памяти. В массиве posts
+		postDocument.Id = id
+		postsCollection.Insert(postDocument)
 	}
 
 	render.Redirect("/")
@@ -69,21 +85,29 @@ func safePostHandler(render render.Render, r *http.Request) {
 
 func getHtmlHadler(render render.Render, r *http.Request) {
 	md := r.FormValue("md")
-	htmlBytes := blackfriday.MarkdownBasic([]byte(md))
+	html := ConvertMarkDownToHtml(md)
 
-	render.JSON(200, map[string]interface{}{"html": string(htmlBytes)})
+	render.JSON(200, map[string]interface{}{"html": string(html)})
 }
+
 //Принимает строку и возвращает интерфайс. Отображение маркдауна как html
-func unescape (x string) interface{} {
+func unescape(x string) interface{} {
 	return template.HTML(x)
 }
 
 func main() {
+	session, err := mgo.Dial("Localhost")
+	if err != nil {
+		panic(err)
+	}
+	defer session.Close()
+
+	postsCollection = session.DB("blog").C("posts")
+
 	m := martini.Classic()
-    //Добавили свою кастомную функцию(динамически) в пакет template и назвалии ее FuncMap
+	//Добавили свою кастомную функцию(динамически) в пакет template и назвалии ее FuncMap
 	unescapeFuncMap := template.FuncMap{"unescape": unescape}
 
-	posts = make(map[string]*models.Post, 0) //создали мапу Post-ов
 	// Универсальный handler вызывается на каждом запросе
 	counter = 0
 	m.Use(func(r *http.Request) {
@@ -94,15 +118,12 @@ func main() {
 
 	//Настройки пакета github.com/martini-contrib/render
 	m.Use(render.Renderer(render.Options{
-		Directory:  "templates",                // Specify what path to load the templates from.
-		Layout:     "layout",                   // Specify a layout template. Layouts can call {{ yield }} to render the current template.
-		Extensions: []string{".tmpl", ".html"}, // Specify extensions to load for templates.
-		Funcs: []template.FuncMap{unescapeFuncMap}, //зарегистрировали функцию которая будет доступна в template. И отрабаотает
-		//Delims: render.Delims{"{[{", "}]}"}, // Sets delimiters to the specified strings.
-		Charset:    "UTF-8", // Sets encoding for json and html content-types. Default is "UTF-8".
+		Directory:  "templates",
+		Layout:     "layout",
+		Extensions: []string{".tmpl", ".html"},
+		Funcs:      []template.FuncMap{unescapeFuncMap}, //зарегистрировали функцию которая будет доступна в template. И отрабаотает
+		Charset:    "UTF-8",
 		IndentJSON: true,    // Output human readable JSON
-		//IndentXML: true, // Output human readable XML
-		//HTMLContentType: "application/xhtml+xml", // Output XHTML content type instead of default "text/html"
 	}))
 
 	staticOption := martini.StaticOptions{Prefix: "assets"}
