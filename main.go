@@ -3,20 +3,32 @@ package main
 import (
 	"blog/db/documents"
 	"blog/models"
+	"blog/session"
+	"blog/utils"
 	"fmt"
 	"github.com/go-martini/martini"
 	"github.com/martini-contrib/render"
 	"gopkg.in/mgo.v2"
 	"html/template"
 	"net/http"
+	"time"
 )
+
+const COOKIE_NAME = "sessionId"
 
 //Глобальная коллекция к ней обращаемся из наших handler
 var postsCollection *mgo.Collection
 var counter int64
+//Указатель на сессию
+var inMemorySession *session.Session
 
 //render который мы подключили(import) будет автоматически инжектится
-func homeRouterHandler(render render.Render) {
+func homeRouterHandler(render render.Render, r *http.Request) {
+	cookie,_ := r.Cookie(COOKIE_NAME)
+	if cookie != nil {
+		fmt.Println(inMemorySession.Get(cookie.Value))
+	}
+
 	var postDocuments []documents.PostDocument
 	postsCollection.Find(nil).All(&postDocuments)
 
@@ -34,6 +46,28 @@ func homeRouterHandler(render render.Render) {
 
 func writeRouteHandler(render render.Render) {
 	render.HTML(200, "write", nil)
+}
+
+func getLoginHandler(render render.Render) {
+	render.HTML(200, "login", nil)
+}
+
+func postLoginHandler(r *http.Request, w http.ResponseWriter, render render.Render) {
+	username := r.FormValue("username")
+	password := r.FormValue("password")
+
+	fmt.Println(password)
+
+    sessionId := inMemorySession.Init(username)
+    cookie := &http.Cookie{
+    	Name: COOKIE_NAME,
+    	Value: sessionId,
+		Expires: time.Now().Add(5 * time.Minute),
+	}
+
+	http.SetCookie(w, cookie)
+
+	render.Redirect("/")
 }
 
 func editRouteHandler(render render.Render, params martini.Params) {
@@ -67,14 +101,14 @@ func safePostHandler(render render.Render, r *http.Request) {
 	id := r.FormValue("id")
 	title := r.FormValue("title")
 	contentMarkDown := r.FormValue("content")
-	contentHtml := ConvertMarkDownToHtml(contentMarkDown)
+	contentHtml := utils.ConvertMarkDownToHtml(contentMarkDown)
 
 	postDocument := documents.PostDocument{Id: id, Title: title, ContentHtml: contentHtml, ContentMarkDown: contentMarkDown}
 
 	if id != "" {
 		postsCollection.UpdateId(id, postDocument)
 	} else {
-		id = GenerateId()
+		id = utils.GenerateId()
 		postDocument.Id = id
 		postsCollection.Insert(postDocument)
 	}
@@ -85,7 +119,7 @@ func safePostHandler(render render.Render, r *http.Request) {
 
 func getHtmlHadler(render render.Render, r *http.Request) {
 	md := r.FormValue("md")
-	html := ConvertMarkDownToHtml(md)
+	html := utils.ConvertMarkDownToHtml(md)
 
 	render.JSON(200, map[string]interface{}{"html": string(html)})
 }
@@ -96,6 +130,9 @@ func unescape(x string) interface{} {
 }
 
 func main() {
+	//Создали новую сессию
+	inMemorySession = session.NewSession()
+
 	session, err := mgo.Dial("Localhost")
 	if err != nil {
 		panic(err)
@@ -123,18 +160,20 @@ func main() {
 		Extensions: []string{".tmpl", ".html"},
 		Funcs:      []template.FuncMap{unescapeFuncMap}, //зарегистрировали функцию которая будет доступна в template. И отрабаотает
 		Charset:    "UTF-8",
-		IndentJSON: true,    // Output human readable JSON
+		IndentJSON: true, // Output human readable JSON
 	}))
 
 	staticOption := martini.StaticOptions{Prefix: "assets"}
 	m.Use(martini.Static("assets", staticOption))
 
-	m.Get("/", homeRouterHandler) // установим обработчик, т,е функция HomeRouterHandler к
+	m.Get("/", homeRouterHandler)
 	m.Get("/write", writeRouteHandler)
 	m.Get("/edit/:id", editRouteHandler)
 	m.Post("/savePost", safePostHandler)
 	m.Get("/delete/:id", deleteRouteHandler)
 	m.Post("/gethtml", getHtmlHadler)
+	m.Get("/login", getLoginHandler)
+	m.Post("/login", postLoginHandler)
 
 	m.Get("/test", func() string {
 		return "dsdsa"
