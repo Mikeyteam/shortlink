@@ -20,12 +20,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d7fd9ab7-444c-45bd-add5-ab1f928b55cd" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/session/session.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/login.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/routes/auth.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/routes/home.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/routes/posts.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blog" beforeDir="false" afterPath="$PROJECT_DIR$/blog" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils.go" beforeDir="false" afterPath="$PROJECT_DIR$/utils/utils.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/session/session.go" beforeDir="false" afterPath="$PROJECT_DIR$/session/session.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/layout.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/utils.go" beforeDir="false" afterPath="$PROJECT_DIR$/utils/utils.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,7 +62,7 @@
     <property name="configurable.Module.GOPATH.is.expanded" value="false" />
     <property name="configurable.Project.GOPATH.is.expanded" value="true" />
     <property name="go.import.settings.migrated" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/templates" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/routes" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.tabs" />
   </component>
   <component name="RecentsManager">
@@ -67,6 +70,7 @@
       <recent name="$PROJECT_DIR$/utils" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/routes" />
       <recent name="$PROJECT_DIR$/templates" />
     </key>
   </component>
@@ -91,10 +95,10 @@
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
     <state x="820" y="354" width="800" height="712" key="#Plugins/61.27.1859.1053@61.27.1859.1053" timestamp="1597756688058" />
-    <state x="984" y="358" width="561" height="396" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1597321758978">
+    <state x="984" y="358" width="561" height="396" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1597932051169">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state x="984" y="358" width="561" height="396" key="#com.intellij.fileTypes.FileTypeChooser/61.27.1859.1053@61.27.1859.1053" timestamp="1597321758978" />
+    <state x="984" y="358" width="561" height="396" key="#com.intellij.fileTypes.FileTypeChooser/61.27.1859.1053@61.27.1859.1053" timestamp="1597932051169" />
     <state x="479" y="187" key="SettingsEditor" timestamp="1597916776071">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
@@ -111,5 +115,9 @@
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
     <state x="372" y="321" width="1190" height="728" key="com.intellij.history.integration.ui.views.FileHistoryDialog/61.27.1859.1053@61.27.1859.1053" timestamp="1597761680622" />
+    <state x="1098" y="147" width="618" height="783" key="find.popup" timestamp="1597997325734">
+      <screen x="61" y="27" width="1859" height="1053" />
+    </state>
+    <state x="1098" y="147" width="618" height="783" key="find.popup/61.27.1859.1053@61.27.1859.1053" timestamp="1597997325734" />
   </component>
 </project>

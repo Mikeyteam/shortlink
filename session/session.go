@@ -1,37 +1,70 @@
 package session
 
-import "blog/utils"
+import (
+	"blog/utils"
+	"github.com/go-martini/martini"
+	"net/http"
+	"time"
+)
 
-type Data struct {
+const CookieName = "sessionId"
+
+type Session struct {
+	id       string
 	Username string
 }
 
-type Session struct {
-	data map[string]*Data
+type Store struct {
+	data map[string]*Session
 }
 
-func NewSession() *Session  {
-	session := new(Session)
-	session.data = make(map[string]*Data)
+func NewSessionStore() *Store {
+	session := new(Store)
+	session.data = make(map[string]*Session)
 
 	return session
 }
 
-//Инициализируем сессию по указателю
-func (session *Session) Init (username string) string {
-    sessionId := utils.GenerateId()
-    data := &Data{Username: username}
-    session.data[sessionId] = data
+func ensureCookie(r *http.Request, w http.ResponseWriter) string {
+	cookie, _ := r.Cookie(CookieName)
+	if cookie != nil {
+		return cookie.Value
+	}
+	sessionId := utils.GenerateId()
+	cookie = &http.Cookie{
+		Name:    CookieName,
+		Value:   sessionId,
+		Expires: time.Now().Add(5 * time.Minute),
+	}
+	http.SetCookie(w, cookie)
 
-    return sessionId
+	return sessionId
+
 }
 
-func (session *Session) Get (sessionId string) string  {
-	data := session.data[sessionId]
-
-	if data != nil {
-		return ""
+func (store *Store) Get(sessionId string) *Session {
+	session := store.data[sessionId]
+	if session == nil {
+		return &Session{id: sessionId}
 	}
 
-	return data.Username
+	return session
+}
+
+func (store *Store) Set(session *Session) {
+	store.data[session.id] = session
+}
+
+var sessionStore = NewSessionStore()
+
+//При реквесте мы получаем его данные и создаем обьект на основании полученных данных
+//Типо обработчик промежуточный. Для сессии нужен текущий контекст
+func Middleware(context martini.Context, r *http.Request, w http.ResponseWriter) {
+	sessionId := ensureCookie(r, w)
+	session := sessionStore.Get(sessionId)
+	context.Map(session)
+	context.Next()
+	// Что после Next вызывается когда Request уже произошел
+	//Подменили обьект. Т.е перед реквестом получили, выполнили реквест и после него обратно сохранили
+	sessionStore.Set(session)
 }
