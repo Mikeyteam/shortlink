@@ -19,29 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d7fd9ab7-444c-45bd-add5-ab1f928b55cd" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/href.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/routes/hrefs.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/routes/routes_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/routes/view.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/view.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/js/write.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/documents/postDocument.go" beforeDir="false" afterPath="$PROJECT_DIR$/db/documents/hrefDocument.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/post.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/auth.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/home.go" beforeDir="false" afterPath="$PROJECT_DIR$/routes/home.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/posts.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/session/session.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/layout.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/login.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/write.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/create.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/utils.go" beforeDir="false" afterPath="$PROJECT_DIR$/utils/utils.go" afterDir="false" />
-    </list>
+    <list default="true" id="d7fd9ab7-444c-45bd-add5-ab1f928b55cd" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -135,9 +113,9 @@
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
     <state x="1098" y="147" width="618" height="783" key="find.popup/61.27.1859.1053@61.27.1859.1053" timestamp="1601245635188" />
-    <state x="810" y="353" width="672" height="678" key="search.everywhere.popup" timestamp="1601207426470">
+    <state x="810" y="353" width="672" height="678" key="search.everywhere.popup" timestamp="1601250159036">
       <screen x="61" y="27" width="1859" height="1053" />
     </state>
-    <state x="810" y="353" width="672" height="678" key="search.everywhere.popup/61.27.1859.1053@61.27.1859.1053" timestamp="1601207426470" />
+    <state x="810" y="353" width="672" height="678" key="search.everywhere.popup/61.27.1859.1053@61.27.1859.1053" timestamp="1601250159036" />
   </component>
 </project>
