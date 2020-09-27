@@ -1,0 +1,18 @@
+{{ range $value := . }}
+    <div class="row">
+        <div class="col-xs-2">
+        </div>
+        <div class="col-xs-8">
+            <h4>Короткая ссылка <a href="{{$value.LongHref}}">{{ $value.ShortHref}}</a></h4>
+            <p>Оригинальная ссылка - {{ $value.LongHref}} </p>
+        </div>
+        <div class="col-xs-2">
+            {{ if .Id }}
+                <a href="/delete/{{.Id}}">Удалить</a><br>
+                <a href="/edit/{{$value.Id}}">Изменить</a>
+            {{ end }}
+        </div>
+    </div>
+{{ end }}
+
+

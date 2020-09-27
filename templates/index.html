@@ -1,23 +1,16 @@
-{{ range $value := . }}
     <div class="row">
         <div class="col-xs-2">
         </div>
         <div class="col-xs-8">
-            <h1><a href="/edit/{{$value.Id}}">{{ $value.Title }}</a></h1>
+            <h1>Сервис по созданию коротких ссылок</h1>
+            <p>Возможности:</p>
+            <ul>
+                <li>сохранить короткое представление заданного URL</li>
+                <li> перейти по сохраненному ранее короткому представлению и получить redirect на соответствующий исходный URL</li>
+            </ul>
         </div>
         <div class="col-xs-2">
         </div>
     </div>
-    <div class="row">
-        <div class="col-xs-2">
-        </div>
-        <div class="col-xs-8">
-            {{/*Вызываем unescape которая зарегистрированя и отработает. Конвертирует markdown в html*/}}
-            {{ $value.ContentHtml | unescape }}
-        </div>
-        <div class="col-xs-2">
-        </div>
-    </div>
-{{ end }}
 
 
